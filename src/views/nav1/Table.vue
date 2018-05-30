@@ -149,6 +149,14 @@
 				<el-form-item label="名称" prop="name">
 					<el-input v-model="addForm.name" auto-complete="off"></el-input>
 				</el-form-item>
+				<el-form-item label="类别">
+					<el-radio-group v-model="addForm.assort">
+						<el-radio-button label="助听器1"></el-radio-button>
+						<el-radio-button label="助听器2"></el-radio-button>
+						<el-radio-button label="助听器3"></el-radio-button>
+						<el-radio-button label="助听器4"></el-radio-button>
+					</el-radio-group>
+				</el-form-item>
 				<el-form-item label="状态">
 					<el-radio-group v-model="addForm.state">
 						<el-radio class="radio" :label="1">已售</el-radio>
@@ -175,7 +183,7 @@
 
 <script>
 	import util from '../../common/js/util'
-	import { formDate, dataExport, getSelect, getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '../../api/api'
+	import { formDate, dataExport, getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '../../api/api'
 
 	export default {
 		data() {
@@ -204,6 +212,7 @@
 					state: -1,
 					serial: 0,
 					date: '',
+					assort: '',
 					dateout: ''
 				},
 
@@ -220,24 +229,25 @@
 					state: -1,
 					serial: 0,
 					date: '',
-					dateout: ''
+					assort: '',
+					value: ''
 				},
 				options2: [{
-					value: 'lista',
+					value: '助听器1',
 					label: '助听器1'
 				}, {
-					value: 'listb',
-					label: '助听器2',
-					disabled: true
+					value: '助听器2',
+					label: '助听器2'
 				}, {
-					value: 'listc',
+					value: '助听器3',
 					label: '助听器3'
 				}, {
-					value: 'listd',
-					label: '助听器4'
+					value: '助听器4',
+					label: '助听器4',
+					disabled: true
 				}],
-					value2: '全部'
-
+				value2: '全部'
+			
 			}
 		},
 		methods: {
@@ -268,6 +278,7 @@
 				};
 				this.listLoading = true;
 				getUserListPage(para).then((res) => {
+					console.log(res)
 					let data = res.data;
 					this.pagenub = data.pageNum;
 					this.total = data.total;
@@ -428,17 +439,23 @@
 			},
 			//下拉框变化事件
 			selectChange: function (value) {
-				console.log(value);
+				console.log(value)
 				let para = {
-					value: value
+					pageNum: this.page,
+					assort: value
 				};
-				getSelect().then((res) => {
+				getUserListPage(para).then((res) => {
 					console.log(res)
-					// let data = res.data;
-					// this.pagenub = data.pageNum;
-					// this.total = data.total;
-					// this.users = data.list;
-					// this.listLoading = false;
+					let data = res.data;
+					this.pagenub = data.pageNum;
+					this.total = data.total;
+					this.users = data.list;
+					this.listLoading = false;
+				}).catch( (err) =>{
+					this.$message({
+						message: '筛洗失败',
+						type: 'warning'
+					});
 				});
 			}
 		},

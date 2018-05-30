@@ -87,6 +87,7 @@
 				};
 				this.listLoading = true;
 				getUserListPage(para).then((res) => {
+					console.log(res)
 					this.total = res.data.total;
 					this.users = res.data.users;
 					this.listLoading = false;

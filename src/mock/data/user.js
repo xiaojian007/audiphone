@@ -18,14 +18,14 @@ const LoginUsers = [{
 
 let Users = []
 
+let Selects = []
+
+
 export{
     LoginUsers,
-    Users
+    Users,
+    Selects
 };
-
-export function cube(x) {
-    return x * x * x;
-}
     
 // 模拟数据
 // for (let i = 0; i < 86; i++) {

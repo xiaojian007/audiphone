@@ -71,9 +71,9 @@ export const editUser = params => {
     return instance.post(`/api/updateAudiphone.do`, params);
 };
 //获取select分类数据
-export const getSelect = params => {
-    return instance.post(`/mock/tableSel.json`, params);
-};
+// export const getSelect = params => {
+//     return axios.post(`/mock/tableSel.json`, params);
+// };
 
 export const batchRemoveUser = params => {
     return axios.get(`${base}/user/batchremove`, {

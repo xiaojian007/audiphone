@@ -37,7 +37,7 @@ module.exports = {
                 }
             },
             '/mock': {
-                target: 'http://192.168.51.21:8811/static/mock',
+                target: 'http://192.168.1.103:8811/static/mock',
                 pathRewrite: {
                     '^/mock': ''
                 }
